@@ -1,60 +1,54 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+'use client';
+import Image from 'next/image';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Checkbox } from '../components/ui/checkbox';
+import { useState } from 'react';
 
 export default function Home() {
+  const [lembrar, setLembrar] = useState(false);
   return (
-    // Centraliza verticalmente e horizontalmente, com padding menor no topo
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#979DAC] p-2">
-      {/* Título principal REMOVIDO para evitar duplicidade */}
-      {/* Card de login centralizado */}
-      <Card className="w-full max-w-md bg-white shadow-lg mt-8">
-        <CardHeader>
-          {/* Título do card agora é o único título visível */}
-          <CardTitle className="text-center text-3xl font-extrabold text-[#0353A4] drop-shadow-md">
-            Carteira Cripto
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex justify-center space-x-4">
-            <Button variant="outline" className="flex-1 border-[#023E7D] text-[#023E7D]">
-              <span className="mr-2">G</span> Google
-            </Button>
-            <Button variant="outline" className="flex-1 border-[#023E7D] text-[#023E7D]">
-              <span className="mr-2">F</span> Facebook
-            </Button>
+    <main className="min-h-screen flex flex-col md:flex-row">
+      {/* Coluna da Imagem (direita no desktop, topo no mobile) */}
+      <div className="md:w-1/2 w-full h-64 md:h-auto relative order-1 md:order-2">
+        <Image
+          src="/imagem-login.png"
+          alt="Imagem Cyberpunk Login"
+          fill
+          className="object-cover w-full h-full"
+          priority
+        />
+      </div>
+      {/* Coluna do Formulário (esquerda no desktop, abaixo no mobile) */}
+      <div className="flex flex-1 items-center justify-center order-2 md:order-1 bg-gray-100">
+        <div className="w-full max-w-md p-8 rounded-lg shadow-lg bg-gray-300">
+          <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">Carteira Cripto</h1>
+          <div className="flex gap-4 mb-4">
+            <Button variant="outline" className="w-1/2 bg-white">G Google</Button>
+            <Button variant="outline" className="w-1/2 bg-white">F Facebook</Button>
           </div>
-          <div className="text-center text-sm text-[#5C677D]">
-            Or use email address
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Email" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="Password" />
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="remember" />
-              <Label htmlFor="remember">Remember me</Label>
+          <div className="text-center text-gray-500 mb-4">Ou use seu e-mail</div>
+          <form className="space-y-4">
+            <div>
+              <label className="block font-medium mb-1" htmlFor="email">E-mail</label>
+              <Input id="email" type="email" placeholder="Digite seu e-mail" required className="bg-white" />
             </div>
-            <a href="#" className="text-sm text-[#0353A4] hover:underline">
-              Forgot password?
-            </a>
+            <div>
+              <label className="block font-medium mb-1" htmlFor="senha">Senha</label>
+              <Input id="senha" type="password" placeholder="Digite sua senha" required className="bg-white" />
+            </div>
+            <div className="flex items-center justify-between">
+              <a href="#" className="text-blue-700 hover:underline text-sm">Lembrar de mim</a>
+              <a href="#" className="text-blue-700 hover:underline text-sm">Esqueceu a senha?</a>
+            </div>
+            <Button type="submit" className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold">Entrar</Button>
+          </form>
+          <div className="text-center text-gray-600 mt-4">
+            Não tem uma conta? <a href="#" className="text-blue-700 hover:underline">Crie grátis agora</a>
           </div>
-          <Button className="w-full bg-[#0353A4] text-white hover:bg-[#023E7D]">
-            Login now
-          </Button>
-          <div className="text-center text-sm">
-            Don&apos;t have an account? <a href="#" className="text-[#33415C] hover:underline">Join free today</a>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </div>
+    </main>
   );
 }
+
