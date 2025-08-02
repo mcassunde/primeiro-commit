@@ -1,77 +1,54 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+'use client';
+import Image from 'next/image';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Checkbox } from '../components/ui/checkbox';
+import { useState } from 'react';
 
 export default function Home() {
+  const [lembrar, setLembrar] = useState(false);
   return (
-    // Container principal: divide em duas colunas
-    <div className="min-h-screen flex">
-      {/* Coluna da esquerda: branca, com o card de login */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8">
-        <div className="w-full max-w-md mt-12">
-          <Card className="w-full bg-transparent shadow-none">
-            <CardHeader>
-              {/* Centraliza os textos */}
-              <CardTitle className="text-center text-3xl font-extrabold text-[#0353A4] drop-shadow-md">
-                CONTROLE DE CARTEIRAS
-              </CardTitle>
-              <div className="text-center text-lg font-semibold text-[#023E7D] mt-2">
-                Faça seu login
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex space-x-4">
-                <Button variant="outline" className="flex-1 border-[#023E7D] text-[#023E7D]">
-                  <span className="mr-2">G</span> Google
-                </Button>
-                <Button variant="outline" className="flex-1 border-[#023E7D] text-[#023E7D]">
-                  <span className="mr-2">F</span> Facebook
-                </Button>
-              </div>
-              <div className="text-center text-sm text-[#5C677D]">
-                Ou use seu e-mail
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
-                <Input id="email" type="email" placeholder="Digite seu e-mail" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input id="password" type="password" placeholder="Digite sua senha" />
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
-                  <Label htmlFor="remember">Lembrar de mim</Label>
-                </div>
-                <a href="#" className="text-sm text-[#0353A4] hover:underline">
-                  Esqueceu a senha?
-                </a>
-              </div>
-              <Button className="w-full bg-[#0353A4] text-white hover:bg-[#023E7D]">
-                Entrar
-              </Button>
-              <div className="text-center text-sm">
-                Não tem uma conta? <a href="#" className="text-[#33415C] hover:underline">Crie uma</a>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-      {/* Coluna da direita: imagem ocupa toda a altura e largura da metade direita */}
-      <div className="hidden md:flex w-1/2 h-screen items-center justify-center bg-[#212529]">
+    <main className="min-h-screen flex flex-col md:flex-row">
+      {/* Coluna da Imagem (direita no desktop, topo no mobile) */}
+      <div className="md:w-1/2 w-full h-64 md:h-auto relative order-1 md:order-2">
         <Image
           src="/imagem-login.png"
-          alt="Ilustração Login"
-          width={700}
-          height={700}
+          alt="Imagem Cyberpunk Login"
+          fill
           className="object-cover w-full h-full"
           priority
         />
       </div>
-    </div>
+      {/* Coluna do Formulário (esquerda no desktop, abaixo no mobile) */}
+      <div className="flex flex-1 items-center justify-center order-2 md:order-1 bg-gray-100">
+        <div className="w-full max-w-md p-8 rounded-lg shadow-lg bg-gray-300">
+          <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">Carteira Cripto</h1>
+          <div className="flex gap-4 mb-4">
+            <Button variant="outline" className="w-1/2 bg-white">G Google</Button>
+            <Button variant="outline" className="w-1/2 bg-white">F Facebook</Button>
+          </div>
+          <div className="text-center text-gray-500 mb-4">Ou use seu e-mail</div>
+          <form className="space-y-4">
+            <div>
+              <label className="block font-medium mb-1" htmlFor="email">E-mail</label>
+              <Input id="email" type="email" placeholder="Digite seu e-mail" required className="bg-white" />
+            </div>
+            <div>
+              <label className="block font-medium mb-1" htmlFor="senha">Senha</label>
+              <Input id="senha" type="password" placeholder="Digite sua senha" required className="bg-white" />
+            </div>
+            <div className="flex items-center justify-between">
+              <a href="#" className="text-blue-700 hover:underline text-sm">Lembrar de mim</a>
+              <a href="#" className="text-blue-700 hover:underline text-sm">Esqueceu a senha?</a>
+            </div>
+            <Button type="submit" className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold">Entrar</Button>
+          </form>
+          <div className="text-center text-gray-600 mt-4">
+            Não tem uma conta? <a href="#" className="text-blue-700 hover:underline">Crie grátis agora</a>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
+
